@@ -1,14 +1,20 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.article.Article;
+import org.skypro.skyshop.article.SearchEngine;
+import org.skypro.skyshop.article.Searchable;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.SimpleProduct;
 
+import java.sql.SQLOutput;
+import java.util.Arrays;
+
 public class App {
     public static void main(String[] args) {
-    /*    SimpleProduct apple = new SimpleProduct ("Яблоко", 20);
+   /*  SimpleProduct apple = new SimpleProduct ("Яблоко", 20);
         SimpleProduct  pear = new SimpleProduct ("Груша", 30);
         SimpleProduct  bananas = new SimpleProduct ("Бананы", 50);
         SimpleProduct  oranges = new SimpleProduct ("Апельсины", 60);
@@ -34,14 +40,34 @@ public class App {
         basket.printBasket();
         int totalPrice = basket.getTotalPrice();
         System.out.println("Общая стоимость корзины после очистки: " + totalPrice);
-        System.out.println("Есть ли в корзине дыня? " + basket.isProductInBasket("Дыня")); */
+        System.out.println("Есть ли в корзине дыня? " + basket.isProductInBasket("Дыня"));
 
         ProductBasket basketNew = new ProductBasket();
         basketNew.addProduct(new SimpleProduct("Арбуз", 80));
         basketNew.addProduct(new DiscountedProduct("Киви", 70, 20));
         basketNew.addProduct(new DiscountedProduct("Грейпфрукт", 150, 30));
         basketNew.addProduct(new FixPriceProduct("Мандарины"));
-        basketNew.printReceipt();
+        basketNew.printReceipt();*/
+
+        SearchEngine searchEngine = new SearchEngine(10);
+        Product productOne = new Product("Сыр");
+        Product productTwo = new DiscountedProduct("Хлеб", 50, 10);
+        Product productThree = new SimpleProduct("Молоко", 20);
+        Article articleOne = new Article("Информация о Сыре", "История ипоявления и изготовления сыра");
+        Article articleTwo = new Article("Информация о Масле", "История ипоявления и изготовления масла");
+
+
+        searchEngine.add(productOne);
+        searchEngine.add(productTwo);
+        searchEngine.add(productThree);
+        searchEngine.add(articleOne);
+        searchEngine.add(articleTwo);
+
+        System.out.println("Ищем результат по Сыру");
+        searchEngine.search("Сыр");
+        System.out.println("Ищем результат по Маслу");
+        searchEngine.search("Информация о Масле");
+
 
     }
 }

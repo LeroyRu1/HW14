@@ -16,13 +16,13 @@ public class DiscountedProduct extends Product {
         return basePrice * (1 - discount / 100);
     }
 
-    @Override
+   @Override
     public boolean isSpecial() {
         return true;
     }
 
-    @Override
+   /* @Override
     public String toString() {
         return name + ": " + getPrice() + " (" + discount + "%)";
-    }
+    }*/
 }

@@ -18,8 +18,8 @@ public class SimpleProduct extends Product {
         return false;
     }
 
-    @Override
+   /* @Override
     public String toString() {
         return name + ": " + getPrice();
-    }
+    }*/
 }

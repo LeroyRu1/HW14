@@ -14,7 +14,7 @@ public class FixPriceProduct extends Product {
         return FIX_PRICE;
     }
 
-    @Override
+  @Override
     public boolean isSpecial() {
         return false;
     }
