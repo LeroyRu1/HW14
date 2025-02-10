@@ -5,10 +5,10 @@ import org.skypro.skyshop.product.Product;
 import java.util.Arrays;
 
 public class ProductBasket {
-    private Product [] basket = new Product [5];
+    private Product[] basket = new Product[5];
     private int productCount = 0;
 
-    public void addProduct (Product product) {
+    public void addProduct(Product product) {
         if (productCount < basket.length) {
             basket[productCount] = product;
             productCount++;
@@ -16,6 +16,7 @@ public class ProductBasket {
             System.out.println("Невозможно добавить продукт!");
         }
     }
+
     public int getTotalPrice() {
         int totalPrice = 0;
         for (int i = 0; i < productCount; i++) {
@@ -24,7 +25,7 @@ public class ProductBasket {
         return totalPrice;
     }
 
-    public void printBasket () {
+    public void printBasket() {
         if (productCount == 0) {
             System.out.println("в корзине пусто");
         } else {
@@ -35,21 +36,37 @@ public class ProductBasket {
         }
     }
 
-        public boolean isProductInBasket (String productName) {
-            for (int i = 0; i < productCount; i++) {
-                if (basket[i].getName().equals(productName)) {
-                    return true;
-                }
+    public boolean isProductInBasket(String productName) {
+        for (int i = 0; i < productCount; i++) {
+            if (basket[i].getName().equals(productName)) {
+                return true;
             }
-            return false;
         }
+        return false;
+    }
 
 
-        public void clearBasket() {
-            for (int i = 0; i < productCount; i++) {
-                basket[i] = null;
-            }
-            productCount = 0;
+    public void clearBasket() {
+        for (int i = 0; i < productCount; i++) {
+            basket[i] = null;
         }
+        productCount = 0;
+    }
+
+    public void printReceipt() {
+        int totalCost = 0;
+        int specialCount = 0;
+
+        for (int i = 0; i < productCount; i++) {
+            System.out.println(basket[i]);
+            totalCost += basket[i].getPrice();
+            if (basket[i].isSpecial()) {
+                specialCount++;
+            }
+        }
+
+        System.out.println("Итого: " + totalCost);
+        System.out.println("Специальных товаров: " + specialCount);
+    }
 
 }
