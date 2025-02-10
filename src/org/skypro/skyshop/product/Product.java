@@ -11,6 +11,13 @@ public class Product implements Searchable {
         this.name = name;
 
     }
+    public int getPrice () {
+        return price;
+    }
+
+    public boolean isSpecial() {
+        return false;
+    }
 
     @Override
     public String getSearchTerm() {
@@ -26,17 +33,12 @@ public class Product implements Searchable {
     public String getName() {
         return name;
     }
-public int getPrice () {
-        return price;
-}
+
 
     @Override
-    public String toString() {
+    public String getStringRepresentation() {
         return "Продукт: " + name;
     }
 
-    public boolean isSpecial() {
-        return false;
-    }
 }
 

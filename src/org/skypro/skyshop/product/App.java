@@ -50,6 +50,7 @@ public class App {
         basketNew.printReceipt();*/
 
         SearchEngine searchEngine = new SearchEngine(10);
+        Searchable searchable = new Product("Халва");
         Product productOne = new Product("Сыр");
         Product productTwo = new DiscountedProduct("Хлеб", 50, 10);
         Product productThree = new SimpleProduct("Молоко", 20);
@@ -68,6 +69,17 @@ public class App {
         System.out.println("Ищем результат по Маслу");
         searchEngine.search("Информация о Масле");
 
+        System.out.println("Информаиця по продукту:");
+        System.out.println("Имя: " + searchable.getName());
+        System.out.println("Тип контента: " + searchable.getContentType());
+        System.out.println("Поисковый термин: " + searchable.getSearchTerm());
+        System.out.println("Представление - " + searchable.getStringRepresentation());
+
+        System.out.println("Информаиця о статье:");
+        System.out.println("Имя: " + articleOne.getName());
+        System.out.println("Тип контента: " + articleOne.getContentType());
+        System.out.println("Поисковый термин: " + articleOne.getSearchTerm());
+        System.out.println("Представление - " + articleOne.getStringRepresentation());
 
     }
 }
