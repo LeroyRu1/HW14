@@ -2,10 +2,49 @@ package org.skypro.skyshop.article;
 
 import java.security.Provider;
 import java.util.Arrays;
+import java.util.List;
 
 public class SearchEngine {
     private Searchable[] searchableItems;
     private int size;
+    private List<Searchable> searchableList;
+
+    public SearchEngine(List<Searchable> searchableList) {
+        this.searchableList = searchableList;
+    }
+
+    public Searchable findBestMatch(String search) throws BestResultNotFound {
+        Searchable bestMatch = null;
+        int maxCount = -1;
+
+        for (Searchable item : searchableList) {
+            String searchTerm = item.getSearchTerm();
+            int count = countOccurrences(searchTerm, search);
+
+            if (count > maxCount) {
+                maxCount = count;
+                bestMatch = item;
+            }
+        }
+
+        if (bestMatch == null || maxCount == 0) {
+            throw new BestResultNotFound("Нет подходящего результата для запроса: " + search);
+        }
+
+        return bestMatch;
+    }
+
+    private int countOccurrences(String str, String substring) {
+        int count = 0;
+        int index = 0;
+
+        while ((index = str.indexOf(substring, index)) != -1) {
+            count++;
+            index += substring.length();
+        }
+
+        return count;
+    }
 
     public SearchEngine(int capacity) {
         searchableItems = new Searchable[capacity];

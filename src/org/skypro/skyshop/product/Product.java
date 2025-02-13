@@ -8,10 +8,19 @@ public class Product implements Searchable {
     private int price;
 
     public Product(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Название продукта не может быть пустым или иметь пробелы!");
+        }
         this.name = name;
 
     }
-    public int getPrice () {
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
         return price;
     }
 
@@ -27,11 +36,6 @@ public class Product implements Searchable {
     @Override
     public String getContentType() {
         return "PRODUCT";
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
 
