@@ -11,17 +11,19 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.SimpleProduct;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
-   /*SimpleProduct apple = new SimpleProduct ("Яблоко", 20);
-        SimpleProduct  pear = new SimpleProduct ("Груша", 30);
-        SimpleProduct  bananas = new SimpleProduct ("Бананы", 50);
-        SimpleProduct  oranges = new SimpleProduct ("Апельсины", 60);
-        SimpleProduct  melon = new SimpleProduct ("Дыня", 10);
+        SimpleProduct apple = new SimpleProduct("Яблоко", 20);
+        SimpleProduct pear = new SimpleProduct("Груша", 30);
+        SimpleProduct bananas = new SimpleProduct("Бананы", 50);
+        SimpleProduct oranges = new SimpleProduct("Апельсины", 60);
+        SimpleProduct melon = new SimpleProduct("Дыня", 10);
 
-       ProductBasket basket = new ProductBasket();
+        ProductBasket basket = new ProductBasket();
 
         basket.addProduct(apple);
         basket.addProduct(pear);
@@ -29,9 +31,38 @@ public class App {
         basket.addProduct(oranges);
         basket.addProduct(melon);
 
+        System.out.println("Корзина до удаления:");
         basket.printBasket();
 
-        Product lemon = new SimpleProduct ("Лимон", 15);
+        List<Product> removeProducts = basket.removeProducts("Яблоко");
+        System.out.println("Удаленные продукты:");
+        if (removeProducts.isEmpty()) {
+            System.out.println("Список пуст");
+        } else {
+            removeProducts.forEach(product -> System.out.println(product.getName() + ": " + product.getPrice()));
+        }
+        System.out.println("Корзина после удаления:");
+        basket.printBasket();
+
+        List<Product> removeProductsNonExist = basket.removeProducts("NonExistProduct");
+        System.out.println("Удаленные несуществующие продукты:");
+        if (removeProductsNonExist.isEmpty()) {
+            System.out.println("Список пуст!");
+        }
+        List<Searchable> searchableList = new ArrayList<>();
+        searchableList.add(new Product("Банан"));
+        searchableList.add(new Product("Арбуз"));
+SearchEngine searchEngine = new SearchEngine(searchableList);
+List<Searchable> searchResults = searchEngine.search("Арбуз");
+        System.out.println("Результаты поиска:");
+        for (Searchable item: searchResults) {
+            System.out.println(item.getStringRepresentation());
+        }
+
+
+
+
+       /* Product lemon = new SimpleProduct("Лимон", 15);
         basket.addProduct(lemon);
 
         System.out.println("В корзине есть груша? " + basket.isProductInBasket("Груша"));
@@ -50,7 +81,7 @@ public class App {
         basketNew.addProduct(new FixPriceProduct("Мандарины"));
         basketNew.printReceipt();
 
-       SearchEngine searchEngine = new SearchEngine(10);
+        SearchEngine searchEngine = new SearchEngine(10);
         Searchable searchable = new Product("Халва");
         Product productOne = new Product("Сыр");
         Product productTwo = new DiscountedProduct("Хлеб", 50, 10);
@@ -80,7 +111,7 @@ public class App {
         System.out.println("Имя: " + articleOne.getName());
         System.out.println("Тип контента: " + articleOne.getContentType());
         System.out.println("Поисковый термин: " + articleOne.getSearchTerm());
-        System.out.println("Представление - " + articleOne.getStringRepresentation());*/
+        System.out.println("Представление - " + articleOne.getStringRepresentation());
 
 
         try {
@@ -118,5 +149,8 @@ public class App {
         }
 
 
-    }
+    }*/
+
+
+}
 }
