@@ -34,8 +34,4 @@ public class DiscountedProduct extends Product {
         return true;
     }
 
-   /* @Override
-    public String toString() {
-        return name + ": " + getPrice() + " (" + discount + "%)";
-    }*/
 }

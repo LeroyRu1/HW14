@@ -15,11 +15,18 @@ public class Product implements Searchable {
 
     }
 
+    public Product(String name, int price) {
+        this.name = name;
+        this.price = price;
+    }
+
     @Override
     public String getName() {
         return name;
     }
-
+    public String getName(String filter) {
+        return name;
+    }
     public int getPrice() {
         return price;
     }
