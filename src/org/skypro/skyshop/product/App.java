@@ -1,38 +1,46 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.article.*;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.basket.ProductBasket;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class App {
     public static void main(String[] args) {
-        Product apple = new Product("Яблоко", 20);
-        Product pear = new Product("Груша", 30);
-        Product bananas = new Product("Бананы", 50);
-        Product oranges = new Product("Апельсины", 60);
-        Product melon = new Product("Дыня", 10);
-
         ProductBasket basket = new ProductBasket();
 
-        basket.addProduct(apple);
-        basket.addProduct(pear);
-        basket.addProduct(bananas);
-        basket.addProduct(oranges);
-        basket.addProduct(melon);
+        basket.addProduct(new Product("Яблоко", 50));
+        basket.addProduct(new Product("Бананы", 100));
+        basket.addProduct(new Product("Апельсины", 20));
+        basket.addProduct(new Product("Виноград", 40));
+        basket.addProduct(new Product("Киви", 60));
+        basket.addProduct(new Product("Яблоко", 50));
 
+
+        System.out.println("Содержимое корзины:");
         basket.printBasket();
 
-        Product lemon = new Product("Лимон", 15);
-        basket.addProduct(lemon);
-
-        System.out.println("В корзине есть груша? " + basket.isProductInBasket("Груша"));
-        System.out.println("В корзине есть лимон? " + basket.isProductInBasket("Лимон"));
-
-        basket.clearBasket();
+        basket.removeProducts("Яблоко");
         basket.printBasket();
-        int totalPrice = basket.getTotalPrice();
-        System.out.println("Общая стоимость корзины после очистки: " + totalPrice);
-        System.out.println("Есть ли в корзине дыня? " + basket.isProductInBasket("Дыня"));
 
+        List<Searchable> searchableList = new ArrayList<>();
+        searchableList.add(new SearchableItem("Яблочный сок", "Сок из яблок"));
+        searchableList.add(new SearchableItem("Апельсиновый сок", "Сок из апельсин"));
+        searchableList.add(new SearchableItem("Малиноый морс", "Морс из малины"));
+        searchableList.add(new SearchableItem("Яблочный сок", "Вкусный сок из яблок"));
+
+        SearchEngine searchEngine = new SearchEngine(searchableList);
+        System.out.println("Результат поиска по слову ,сок,: ");
+
+        Map<String, List<Searchable>> searchResults = searchEngine.search("сок");
+        for (Map.Entry<String, List<Searchable>> entry : searchResults.entrySet()) {
+            System.out.println(entry.getKey() + ": ");
+            for (Searchable item: entry.getValue()) {
+                System.out.println(" - " + item.getStringRepresentation());
+            }
+        }
 
 
     }

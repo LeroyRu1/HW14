@@ -2,54 +2,51 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class ProductBasket {
-    private Product [] basket = new Product [5];
+    private Map<String, List<Product>> basket = new HashMap<>();
     private int productCount = 0;
 
-    public void addProduct (Product product) {
-        if (productCount < basket.length) {
-            basket[productCount] = product;
-            productCount++;
-        } else {
-            System.out.println("Невозможно добавить продукт!");
-        }
+    public void addProduct(Product product) {
+        basket.putIfAbsent(product.getName(), new ArrayList<>());
+        basket.get(product.getName()).add(product);
+        productCount++;
     }
+
     public int getTotalPrice() {
         int totalPrice = 0;
-        for (int i = 0; i < productCount; i++) {
-            totalPrice += basket[i].getPrice();
+        for (List<Product> products : basket.values()) {
+            for (Product product : products) {
+                totalPrice += product.getPrice();
+            }
         }
         return totalPrice;
     }
 
-    public void printBasket () {
+    public void printBasket() {
         if (productCount == 0) {
             System.out.println("в корзине пусто");
-        } else {
-            for (int i = 0; i < productCount; i++) {
-                System.out.println(basket[i].getName() + ": " + basket[i].getPrice());
-            }
-            System.out.println("Итого: " + getTotalPrice());
+            return;
         }
+
+        for (Map.Entry<String, List<Product>> entry : basket.entrySet()) {
+            for (Product product : entry.getValue()) {
+                System.out.println(product.getName() + ": " + product.getPrice());
+            }
+        }
+
+        System.out.println("Итого: " + getTotalPrice());
     }
 
-        public boolean isProductInBasket (String productName) {
-            for (int i = 0; i < productCount; i++) {
-                if (basket[i].getName().equals(productName)) {
-                    return true;
-                }
-            }
-            return false;
-        }
 
-
-        public void clearBasket() {
-            for (int i = 0; i < productCount; i++) {
-                basket[i] = null;
-            }
-            productCount = 0;
+    public List<Product> removeProducts(String name) {
+        List<Product> removed = basket.remove(name);
+        if (removed != null) {
+            productCount -= removed.size();
         }
+        return removed != null ? removed : new ArrayList<>();
+    }
+
 
 }
