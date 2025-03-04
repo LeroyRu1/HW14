@@ -3,6 +3,8 @@ package org.skypro.skyshop.product;
 
 import org.skypro.skyshop.article.Searchable;
 
+import java.util.Objects;
+
 public class Product implements Searchable {
     private final String name;
     private int price;
@@ -24,16 +26,10 @@ public class Product implements Searchable {
     public String getName() {
         return name;
     }
-    public String getName(String filter) {
-        return name;
-    }
     public int getPrice() {
         return price;
     }
 
-    public boolean isSpecial() {
-        return false;
-    }
 
     @Override
     public String getSearchTerm() {
@@ -51,5 +47,17 @@ public class Product implements Searchable {
         return "Продукт: " + name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(name, product.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
+    }
 }
 

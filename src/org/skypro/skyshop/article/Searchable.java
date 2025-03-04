@@ -9,6 +9,6 @@ public interface Searchable {
     String getName ();
 
     default String getStringRepresentation () {
-        return getName() + " - тип " + getContentType();
+        return "Статья: " + getName();
     }
 }

@@ -1,24 +1,30 @@
 package org.skypro.skyshop.article;
 
-import java.security.Provider;
 import java.util.*;
 
 public class SearchEngine {
-    private List<Searchable> searchableList;
+    private Set<Searchable> searchableSet;
 
-    public SearchEngine(List<Searchable> searchableList) {
-        this.searchableList = searchableList;
+    public SearchEngine(Set<Searchable> searchableSet) {
+        this.searchableSet = searchableSet;
     }
 
-    public Map<String, List<Searchable>> search(String searchTerm) {
-        Map<String, List<Searchable>> resultMap = new TreeMap<>();
+    public Set<Searchable> search(String searchTerm) {
+        Set<Searchable> resultSet = new TreeSet<>(new Comparator<Searchable>() {
+            @Override
+            public int compare(Searchable o1, Searchable o2) {
+                if (o1 instanceof Article && o2 instanceof Article) {
+                    return new ArticleComparator().compare((Article) o1, (Article) o2);
+                }
+                return o1.getName().compareTo(o2.getName());
+            }
 
-        for (Searchable item : searchableList) {
+        });
+        for (Searchable item : searchableSet) {
             if (item.getSearchTerm().contains(searchTerm)) {
-                resultMap.putIfAbsent(item.getSearchTerm(), new ArrayList<>());
-                resultMap.get(item.getSearchTerm()).add(item);
+                resultSet.add(item);
             }
         }
-        return resultMap;
+        return resultSet;
     }
 }

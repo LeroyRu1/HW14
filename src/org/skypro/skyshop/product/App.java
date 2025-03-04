@@ -3,45 +3,56 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.article.*;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.basket.ProductBasket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
+import java.sql.SQLOutput;
+import java.util.*;
 
 public class App {
     public static void main(String[] args) {
-        ProductBasket basket = new ProductBasket();
+        Set<Searchable> searchableSet = new HashSet<>();
 
-        basket.addProduct(new Product("Яблоко", 50));
-        basket.addProduct(new Product("Бананы", 100));
-        basket.addProduct(new Product("Апельсины", 20));
-        basket.addProduct(new Product("Виноград", 40));
-        basket.addProduct(new Product("Киви", 60));
-        basket.addProduct(new Product("Яблоко", 50));
+        Product one = new Product("Яблоко", 50);
+        Product two = new Product("Бананы", 100);
+        Product three = new Product("Апельсины", 20);
+        Product four = new Product("Виноград", 40);
+        Product five = new Product("Киви", 60);
+        Product six = new Product("Яблоко", 50);
 
 
-        System.out.println("Содержимое корзины:");
-        basket.printBasket();
+        Article one1 = new Article("Яблочный сок", "Сок из яблок");
+        Article two2 = new Article("Апельсиновый сок", "Сок из апельсин");
+        Article three3 = new Article("Малиновый морс", "Морс из малины");
+        Article four4 = new Article("Яблочный сок", "Вкусный сок из яблок");
+        Article five5 = new Article("Яблочный сок", "Вкусный сок из яблок");
 
-        basket.removeProducts("Яблоко");
-        basket.printBasket();
+        searchableSet.add(one);
+        searchableSet.add(two);
+        searchableSet.add(three);
+        searchableSet.add(four);
+        searchableSet.add(five);
+        searchableSet.add(six);
 
-        List<Searchable> searchableList = new ArrayList<>();
-        searchableList.add(new SearchableItem("Яблочный сок", "Сок из яблок"));
-        searchableList.add(new SearchableItem("Апельсиновый сок", "Сок из апельсин"));
-        searchableList.add(new SearchableItem("Малиноый морс", "Морс из малины"));
-        searchableList.add(new SearchableItem("Яблочный сок", "Вкусный сок из яблок"));
+        searchableSet.add(one1);
+        searchableSet.add(two2);
+        searchableSet.add(three3);
+        searchableSet.add(four4);
+        searchableSet.add(five5);
 
-        SearchEngine searchEngine = new SearchEngine(searchableList);
+        SearchEngine searchEngine = new SearchEngine(searchableSet);
+
+        System.out.println("Продукты в корзине: ");
+        for (Searchable item : searchableSet) {
+            System.out.println(item.getStringRepresentation());
+        }
         System.out.println("Результат поиска по слову ,сок,: ");
 
-        Map<String, List<Searchable>> searchResults = searchEngine.search("сок");
-        for (Map.Entry<String, List<Searchable>> entry : searchResults.entrySet()) {
-            System.out.println(entry.getKey() + ": ");
-            for (Searchable item: entry.getValue()) {
-                System.out.println(" - " + item.getStringRepresentation());
+        Set<Searchable> searchResults = searchEngine.search("сок");
+        if (searchResults.isEmpty()) {
+            System.out.println("Ничего не найдено");
+        } else {
+            for (Searchable item : searchResults) {
+                System.out.println(" - " + item.toString());
             }
         }
-
-
     }
 }
