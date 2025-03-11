@@ -15,13 +15,10 @@ public class ProductBasket {
     }
 
     public int getTotalPrice() {
-        int totalPrice = 0;
-        for (List<Product> products : basket.values()) {
-            for (Product product : products) {
-                totalPrice += product.getPrice();
-            }
-        }
-        return totalPrice;
+        return basket.values().stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
     }
 
     public void printBasket() {
@@ -30,13 +27,19 @@ public class ProductBasket {
             return;
         }
 
-        for (Map.Entry<String, List<Product>> entry : basket.entrySet()) {
-            for (Product product : entry.getValue()) {
-                System.out.println(product.getName() + ": " + product.getPrice());
-            }
-        }
+        basket.values().stream()
+                .flatMap(Collection::stream)
+                .forEach(product -> System.out.println(product.getName() + ": " + product.getPrice()));
 
         System.out.println("Итого: " + getTotalPrice());
+        System.out.println("Количество специальных товаров: " + getSpecialCount(50));
+    }
+
+    private long getSpecialCount(int threshold) {
+        return basket.values().stream()
+                .flatMap(Collection::stream)
+                .filter(product -> product.getPrice() > threshold)
+                .count();
     }
 
 
